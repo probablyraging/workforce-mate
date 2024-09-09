@@ -4,8 +4,7 @@
     "version": "1.0",
     "description": "Easily fill out your job search on the workforceaustralia.gov.au website",
     "host_permissions": [
-        "https://www.workforceaustralia.gov.au/*",
-        "https://www.seek.com.au/*"
+        "https://www.workforceaustralia.gov.au/*"
     ],
     "background": {
         "service_worker": "background.js"

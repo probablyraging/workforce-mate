@@ -1,116 +1,157 @@
-if (document.readyState === 'loading') {
-    setInterval(() => {
-        document.addEventListener('DOMContentLoaded', addButtonToTabsMenu);
-    }, 1000);
-} else {
-    setInterval(() => {
-        addButtonToTabsMenu();
-    }, 1000);
-}
+const buttonId = 'dole-bludger';
+const retryInterval = 500;
 
-function addButtonToTabsMenu() {
-    const alreadyExists = document.getElementById('dole-bludger')
-    if (alreadyExists) return;
-
-    const form = document.getElementsByClassName('container-fluid')[0];
-
-    if (form) {
-        const input = document.createElement('input');
-        input.placeholder = 'Enter a seek.com.au job listing URL to auto fill the form below';
-        input.style.cssText = `
-            background-color: #fff;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            padding: 8px 16px;
-            font-size: 14px;
-            align-items: center;
-            height: 36px;
-            width: 100%;
-            margin-bottom: 10px;
-        `;
-
-        const button = document.createElement('button');
-        button.textContent = 'FILL FORM';
-        button.style.cssText = `
-            background-color: #00a1d0;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            padding: 8px 16px;
-            font-family: Arial, sans-serif;
-            font-size: 14px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            height: 36px;
-            min-width: fit-content;
-        `;
-
-        button.addEventListener('click', async function (e) {
-            try {
-                e.preventDefault();
-                const inputVal = input.value;
-
-                if (inputVal.length > 0) {
-                    chrome.runtime.sendMessage({ action: "fetchJobData", url: inputVal }, function (response) {
-                        if (response.error) {
-                            console.error('Error:', response.error);
-                        } else {
-                            const jobTitleInput = document.querySelector('input[name="JobTitle"]');
-                            const jobLocationInput = document.querySelector('input[name="JobLocation"]');
-                            const agentNameInput = document.querySelector('input[name="AgentName"]');
-                            const employerContactInput = document.querySelector('input[name="EmployerContact"]');
-                            const applicationMethodSelect = document.querySelector('select[name="ApplicationMethod"]');
-
-                            const parser = new DOMParser();
-                            const doc = parser.parseFromString(response.data, 'text/html');
-
-                            const jobTitle = doc.querySelector('h1[data-automation="job-detail-title"]');
-                            if (jobTitle) {
-                                const content = jobTitle.innerText.slice(0, 50).split('-')[0];
-                                jobTitleInput.value = content.trim();
-                            } else {
-                                console.error('Meta tag with property twitter:title not found');
-                            }
-
-                            const jobLocation = doc.querySelector('span[data-automation="job-detail-location"]');
-                            if (jobLocation) {
-                                const content = jobLocation.innerText;
-                                jobLocationInput.value = content;
-                            } else {
-                                console.error('Meta tag with property twitter:title not found');
-                            }
-
-                            const jobAgent =
-                                doc.querySelector('.xvu5580._159rinv4y._159rinvh2._7vq8im0._7vq8im1._7vq8im21._1708b944._7vq8ima') ||
-                                doc.querySelector('span[data-automation="advertiser-name"]');
-                            if (jobAgent) {
-                                const content = jobAgent.innerText;
-                                agentNameInput.value = content;
-                            } else {
-                                console.error('Meta tag with property twitter:title not found');
-                            }
-
-                            employerContactInput.value = 'Online';
-                            applicationMethodSelect.value = "ONEX";
-                        }
-                    });
-                }
-            } catch (error) {
-                console.error('Error in event listener: ', error);
-            }
-        });
-
-        const newDiv = document.createElement('div');
-        newDiv.id = 'dole-bludger';
-        newDiv.style.display = 'flex';
-        newDiv.style.gap = '4px'
-        newDiv.appendChild(input);
-        newDiv.appendChild(button);
-        form.insertBefore(newDiv, form.firstChild);
+// Initialize the extension
+function initializeExtension() {
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', () => addButtonToTabsMenu());
     } else {
-        setTimeout(() => {
-            addButtonToTabsMenu();
-        }, 500);
+        addButtonToTabsMenu();
     }
 }
+
+// Add button to form - retry if form not found
+function addButtonToTabsMenu() {
+    const form = document.querySelector('.container-fluid');
+    if (!form) {
+        setTimeout(() => addButtonToTabsMenu(), retryInterval);
+        return;
+    }
+
+    if (document.getElementById(buttonId)) return;
+
+    const newDiv = createFormFillerElements();
+    form.insertBefore(newDiv, form.firstChild);
+}
+
+// Main div element
+function createFormFillerElements() {
+    const newDiv = document.createElement('div');
+    newDiv.id = buttonId;
+    newDiv.style.cssText = 'display: flex; gap: 4px;';
+
+    const input = createInput();
+    const button = createButton();
+
+    newDiv.appendChild(input);
+    newDiv.appendChild(button);
+
+    return newDiv;
+}
+
+// Input element
+function createInput() {
+    const input = document.createElement('input');
+    input.placeholder = 'Enter a seek.com.au job listing URL to auto fill the form below';
+    input.style.cssText = `
+        background-color: #fff;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        padding: 8px 16px;
+        font-size: 14px;
+        align-items: center;
+        height: 36px;
+        width: 100%;
+        margin-bottom: 10px;
+    `;
+    return input;
+}
+
+// Button element
+function createButton() {
+    const button = document.createElement('button');
+    button.textContent = 'FILL FORM';
+    button.style.cssText = `
+        background-color: #00a1d0;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        padding: 8px 16px;
+        font-family: Arial, sans-serif;
+        font-size: 14px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        height: 36px;
+        min-width: fit-content;
+    `;
+    button.addEventListener('click', handleButtonClick);
+    return button;
+}
+
+// Handle button clikc
+async function handleButtonClick(e) {
+    e.preventDefault();
+    const input = document.querySelector(`#${buttonId} input`);
+    const url = input.value.trim();
+
+    if (!url) {
+        console.error('Please enter a valid URL');
+        return;
+    }
+
+    try {
+        const jobData = await fetchJobData(url);
+        fillForm(jobData);
+    } catch (error) {
+        console.error('Error:', error.message);
+    }
+}
+
+// Fetch job data
+function fetchJobData(url) {
+    return new Promise((resolve, reject) => {
+        chrome.runtime.sendMessage({ action: "fetchJobData", url }, response => {
+            if (response.error) {
+                reject(new Error(response.error));
+            } else {
+                resolve(response.data);
+            }
+        });
+    });
+}
+
+// Fill form with job data
+function fillForm(htmlData) {
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(htmlData, 'text/html');
+    const jobDetails = getJobDetails(doc);
+
+    setInputValue('input[name="JobTitle"]', jobDetails.jobTitle, 50);
+    setInputValue('input[name="JobLocation"]', jobDetails.jobLocation);
+    setInputValue('input[name="AgentName"]', jobDetails.jobAgent);
+    setInputValue('input[name="EmployerContact"]', 'Online');
+    setSelectValue('select[name="ApplicationMethod"]', 'ONEX');
+}
+
+// Set input value
+function setInputValue(selector, value, maxLength) {
+    const input = document.querySelector(selector);
+    if (input && value) {
+        input.value = maxLength ? value.slice(0, maxLength).split('-')[0].trim() : value.trim();
+    } else {
+        console.error(`${selector} not found or value is empty`);
+    }
+}
+
+// Set select value
+function setSelectValue(selector, value) {
+    const select = document.querySelector(selector);
+    if (select) {
+        select.value = value;
+    } else {
+        console.error(`${selector} not found`);
+    }
+}
+
+// Get job details
+function getJobDetails(doc) {
+    const jobTitle = doc.querySelector('h1[data-automation="job-detail-title"]')?.textContent;
+    const jobLocation = doc.querySelector('span[data-automation="job-detail-location"]')?.textContent;
+    const jobAgent = doc.querySelector('h1[data-automation="job-detail-title"]')?.closest('div')
+        ?.nextElementSibling?.querySelector('span')?.textContent.trim();
+
+    return { jobTitle, jobLocation, jobAgent };
+}
+
+initializeExtension();
