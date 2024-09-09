@@ -2,7 +2,7 @@
     "manifest_version": 3,
     "name": "Dole Bludger",
     "version": "1.0",
-    "description": "Easily fill out your job search on the workforceaustralia.gov.au website",
+    "description": "Easily fill out your job search efforts on the workforceaustralia.gov.au website",
     "host_permissions": [
         "https://www.workforceaustralia.gov.au/*"
     ],
