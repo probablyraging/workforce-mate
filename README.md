@@ -7,7 +7,7 @@
 [![Video Title](https://i.imgur.com/1fSpAvu.png)](https://www.youtube.com/watch?v=C0yKAg6IklU)
 
 ## Installation - Chrome Web Store
-Pending verification on CWS - a direct CWS link will be added soon
+Pending review on CWS - a direct CWS link will be added soon
 
 ## Installation - Unpacked Extension
 ![image](https://github.com/user-attachments/assets/ba852bc9-bcab-4508-a2de-5738860a4b1e)
