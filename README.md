@@ -1,4 +1,5 @@
 ## Roadmap
+- [x] Support Seek job listings
 - [ ] Support Jora job listings
 - [ ] Support CarrerOne job listings
 - [ ] Support Indeed job listings
