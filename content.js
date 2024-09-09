@@ -1,10 +1,17 @@
 if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', addButtonToTabsMenu);
+    setInterval(() => {
+        document.addEventListener('DOMContentLoaded', addButtonToTabsMenu);
+    }, 1000);
 } else {
-    addButtonToTabsMenu();
+    setInterval(() => {
+        addButtonToTabsMenu();
+    }, 1000);
 }
 
 function addButtonToTabsMenu() {
+    const alreadyExists = document.getElementById('dole-bludger')
+    if (alreadyExists) return;
+
     const form = document.getElementsByClassName('container-fluid')[0];
 
     if (form) {
@@ -58,10 +65,10 @@ function addButtonToTabsMenu() {
                             const parser = new DOMParser();
                             const doc = parser.parseFromString(response.data, 'text/html');
 
-                            const jobTitle = doc.querySelector('meta[property="twitter:title"]');
+                            const jobTitle = doc.querySelector('h1[data-automation="job-detail-title"]');
                             if (jobTitle) {
-                                const content = jobTitle.getAttribute('content').split(' - ')[0];
-                                jobTitleInput.value = content;
+                                const content = jobTitle.innerText.slice(0, 50).split('-')[0];
+                                jobTitleInput.value = content.trim();
                             } else {
                                 console.error('Meta tag with property twitter:title not found');
                             }
@@ -74,7 +81,9 @@ function addButtonToTabsMenu() {
                                 console.error('Meta tag with property twitter:title not found');
                             }
 
-                            const jobAgent = doc.querySelector('.xvu5580._159rinv4y._159rinvh2._7vq8im0._7vq8im1._7vq8im21._1708b944._7vq8ima');
+                            const jobAgent =
+                                doc.querySelector('.xvu5580._159rinv4y._159rinvh2._7vq8im0._7vq8im1._7vq8im21._1708b944._7vq8ima') ||
+                                doc.querySelector('span[data-automation="advertiser-name"]');
                             if (jobAgent) {
                                 const content = jobAgent.innerText;
                                 agentNameInput.value = content;
@@ -93,6 +102,7 @@ function addButtonToTabsMenu() {
         });
 
         const newDiv = document.createElement('div');
+        newDiv.id = 'dole-bludger';
         newDiv.style.display = 'flex';
         newDiv.style.gap = '4px'
         newDiv.appendChild(input);
