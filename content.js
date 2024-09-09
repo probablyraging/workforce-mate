@@ -92,7 +92,10 @@ async function handleButtonClick(e) {
 
     try {
         const jobData = await fetchJobData(url);
-        fillForm(jobData);
+
+        if (url.includes('seek.com.au/')) fillFormFromSeek(jobData);
+        if (url.includes('au.jora.com/')) fillFormFromJora(jobData);
+        if (url.includes('au.indeed.com/')) fillFormFromIndeed(jobData);
     } catch (error) {
         console.error('Error:', error.message);
     }
@@ -112,14 +115,48 @@ function fetchJobData(url) {
 }
 
 // Fill form with job data
-function fillForm(htmlData) {
+function fillFormFromSeek(htmlData) {
     const parser = new DOMParser();
     const doc = parser.parseFromString(htmlData, 'text/html');
-    const jobDetails = getJobDetails(doc);
 
-    setInputValue('input[name="JobTitle"]', jobDetails.jobTitle, 50);
-    setInputValue('input[name="JobLocation"]', jobDetails.jobLocation);
-    setInputValue('input[name="AgentName"]', jobDetails.jobAgent);
+    const jobTitle = doc.querySelector('h1[data-automation="job-detail-title"]')?.textContent;
+    const jobLocation = doc.querySelector('span[data-automation="job-detail-location"]')?.textContent;
+    const jobAgent = doc.querySelector('h1[data-automation="job-detail-title"]')?.closest('div')
+        ?.nextElementSibling?.querySelector('span')?.textContent.trim();
+
+    setInputValue('input[name="JobTitle"]', jobTitle, 50);
+    setInputValue('input[name="JobLocation"]', jobLocation);
+    setInputValue('input[name="AgentName"]', jobAgent);
+    setInputValue('input[name="EmployerContact"]', 'Online');
+    setSelectValue('select[name="ApplicationMethod"]', 'ONEX');
+}
+
+function fillFormFromJora(htmlData) {
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(htmlData, 'text/html');
+
+    const jobTitle = doc.querySelector('h1.job-title')?.textContent;
+    const jobLocation = doc.querySelector('span.location')?.textContent;
+    const jobAgent = doc.querySelector('span.company')?.textContent;
+
+    setInputValue('input[name="JobTitle"]', jobTitle, 50);
+    setInputValue('input[name="JobLocation"]', jobLocation);
+    setInputValue('input[name="AgentName"]', jobAgent);
+    setInputValue('input[name="EmployerContact"]', 'Online');
+    setSelectValue('select[name="ApplicationMethod"]', 'ONEX');
+}
+
+function fillFormFromIndeed(htmlData) {
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(htmlData, 'text/html');
+
+    const jobTitle = doc.querySelector('h1.jobsearch-JobInfoHeader-title')?.textContent;
+    const jobLocation = doc.querySelector('div[data-testid="inlineHeader-companyLocation"]')?.textContent;
+    const jobAgent = doc.querySelector('div[data-testid="inlineHeader-companyName"] a')?.textContent.trim().split('.css')[0];
+
+    setInputValue('input[name="JobTitle"]', jobTitle, 50);
+    setInputValue('input[name="JobLocation"]', jobLocation);
+    setInputValue('input[name="AgentName"]', jobAgent);
     setInputValue('input[name="EmployerContact"]', 'Online');
     setSelectValue('select[name="ApplicationMethod"]', 'ONEX');
 }
@@ -128,7 +165,7 @@ function fillForm(htmlData) {
 function setInputValue(selector, value, maxLength) {
     const input = document.querySelector(selector);
     if (input && value) {
-        input.value = maxLength ? value.slice(0, maxLength).split('-')[0].trim() : value.trim();
+        input.value = maxLength ? value.slice(0, maxLength).trim() : value.trim();
     } else {
         console.error(`${selector} not found or value is empty`);
     }
@@ -142,16 +179,6 @@ function setSelectValue(selector, value) {
     } else {
         console.error(`${selector} not found`);
     }
-}
-
-// Get job details
-function getJobDetails(doc) {
-    const jobTitle = doc.querySelector('h1[data-automation="job-detail-title"]')?.textContent;
-    const jobLocation = doc.querySelector('span[data-automation="job-detail-location"]')?.textContent;
-    const jobAgent = doc.querySelector('h1[data-automation="job-detail-title"]')?.closest('div')
-        ?.nextElementSibling?.querySelector('span')?.textContent.trim();
-
-    return { jobTitle, jobLocation, jobAgent };
 }
 
 initializeExtension();

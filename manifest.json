@@ -13,7 +13,9 @@
         {
             "matches": [
                 "https://www.workforceaustralia.gov.au/*",
-                "https://www.seek.com.au/*"
+                "https://www.seek.com.au/*",
+                "https://au.jora.com/*",
+                "https://au.indeed.com/*"
             ],
             "js": [
                 "content.js"

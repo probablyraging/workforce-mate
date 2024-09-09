@@ -1,8 +1,7 @@
 ## Roadmap
 - [x] Support Seek job listings
-- [ ] Support Jora job listings
-- [ ] Support CarrerOne job listings
-- [ ] Support Indeed job listings
+- [x] Support Jora job listings
+- [x] Support Indeed job listings
 
 ## Video Demonstration
 [![Video Title](https://i.imgur.com/1fSpAvu.png)](https://www.youtube.com/watch?v=C0yKAg6IklU)
