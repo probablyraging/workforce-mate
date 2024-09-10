@@ -1,7 +1,7 @@
 ## Installation
-**Chrome:** Install the latest stable version directly from the [Chrome Web Store](https://chromewebstore.google.com/detail/dole-bludger/haeckfjephijlgkadecdknebckfndnpi)
+**Chrome:** Install directly from the [Chrome Web Store](https://chromewebstore.google.com/detail/dole-bludger/haeckfjephijlgkadecdknebckfndnpi)
 
-**Firefox:** *coming soon..*
+**Firefox:** Install directly from the [Mozilla Add-ons website](https://addons.mozilla.org/en-US/firefox/addon/dole-bludger/)
 
 ## Installation - Unpacked Extension
 1. Download the `.zip` file for `chrome` or `firefox` from [latest release](https://github.com/probablyraging/dole-bludger/releases)
