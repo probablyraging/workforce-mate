@@ -10,6 +10,10 @@
 
 [Chrome Written Guide](https://developer.chrome.com/docs/extensions/mv3/getstarted/development-basics/#load-unpacked) | [Firefox Written Guide](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/Your_first_WebExtension#installing) | [Chrome/Firefox Video Guide](https://www.youtube.com/watch?v=dhaGRJvJAII) 
 
+## Features
+- ✅ Support for Chrome and Firefox
+- ✅ Support for Seek, Jora, and Indeed job listings
+
 ## Video Demonstration
 [![Video Title](https://i.imgur.com/1fSpAvu.png)](https://www.youtube.com/watch?v=C0yKAg6IklU)
 
