@@ -1,3 +1,2 @@
-- Changed extension name to 'Workforce Mate'
-- Updated extension icon to suit name change
-- Removed unnecessary permission from firefox manifest
+- Added a divider between the WFM input and the rest of the form
+- Added a label to the input

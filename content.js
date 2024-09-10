@@ -5,45 +5,65 @@ const retryInterval = 500;
 // Initialize the extension
 function initializeExtension() {
     if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', () => addButtonToTabsMenu());
+        document.addEventListener('DOMContentLoaded', () => addDivToForm());
     } else {
-        addButtonToTabsMenu();
+        addDivToForm();
     }
 }
 
 // Add button to form - retry if form not found
-function addButtonToTabsMenu() {
+function addDivToForm() {
     const form = document.querySelector('.container-fluid');
     if (!form) {
-        setTimeout(() => addButtonToTabsMenu(), retryInterval);
+        setTimeout(() => addDivToForm(), retryInterval);
         return;
     }
 
     if (document.getElementById(buttonId)) return;
 
     const newDiv = createFormFillerElements();
-    form.insertBefore(newDiv, form.firstChild);
+    form.insertBefore(newDiv.mainDiv, form.firstChild);
+
+    setTimeout(() => newDiv.input.focus(), 0);
 }
 
 // Main div element
 function createFormFillerElements() {
-    const newDiv = document.createElement('div');
-    newDiv.id = buttonId;
-    newDiv.style.cssText = 'display: flex; gap: 4px;';
+    const mainDiv = document.createElement('div');
+    mainDiv.style.cssText = 'display: flex; flex-direction: column; gap: 2px;';
+    mainDiv.id = buttonId;
 
+    const flexDiv = document.createElement('div');
+    flexDiv.style.cssText = 'display: flex; gap: 6px;';
+
+    const divider = document.createElement('div');
+    divider.style.cssText = 'width: 100%; height: 1px; background-color: #dadada; margin-top: 10px; margin-bottom: 20px;';
+
+    const label = createLabel();
     const input = createInput();
     const button = createButton();
 
-    newDiv.appendChild(input);
-    newDiv.appendChild(button);
+    mainDiv.appendChild(label);
+    mainDiv.append(flexDiv);
+    flexDiv.appendChild(input);
+    flexDiv.appendChild(button);
+    mainDiv.appendChild(divider);
 
-    return newDiv;
+    return { mainDiv, input };
+}
+
+// Label element
+function createLabel() {
+    const label = document.createElement('p');
+    label.textContent = 'Job Listing URL';
+    label.style.cssText = 'font: 16px "Public Sans", sans-serif; font-weight: 500; margin-bottom: 6px;';
+    return label;
 }
 
 // Input element
 function createInput() {
     const input = document.createElement('input');
-    input.placeholder = 'Enter a seek.com.au job listing URL to auto fill the form below';
+    input.placeholder = 'Enter a Seek, Jora, or Indeed job listing URL';
     input.style.cssText = `
         background-color: #fff;
         border: 1px solid #ccc;
