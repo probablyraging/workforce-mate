@@ -1,5 +1,6 @@
 ## Installation
 **Chrome:** Install the latest stable version directly from the [Chrome Web Store](https://chromewebstore.google.com/detail/dole-bludger/haeckfjephijlgkadecdknebckfndnpi)
+
 **Firefox:** *coming soon..*
 
 ## Installation - Unpacked Extension
