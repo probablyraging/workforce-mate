@@ -1,3 +1,12 @@
+<div align="center">
+  <img src="https://i.imgur.com/QHYnlVw.png" width='80' alt='Click for larger image' />
+  <h1>Workforce Mate</h1>
+  <p>Automatically pulls job information from job listing sites and fills out the form on Workforce Australia for you</p>
+</div>
+<div align="center" style="margin-top: 10px;">
+  <img src="https://i.imgur.com/lPoaaG5.png" width='700' alt='Click for larger image' />
+</div>
+
 ## Installation
 - **Chrome:** Install directly from the [Chrome Web Store](https://chromewebstore.google.com/detail/haeckfjephijlgkadecdknebckfndnpi)
 - **Firefox:** Install directly from the [Mozilla Add-ons website](https://addons.mozilla.org/en-US/firefox/addon/dole-bludger/)
@@ -20,7 +29,7 @@
 
 **Video demonstration**
 
-[![Video Title](https://i.imgur.com/2FkSqiB.png)](https://www.youtube.com/watch?v=C0yKAg6IklU)
+[![Video Title](https://i.imgur.com/1SQ8hWp.png)](https://www.youtube.com/watch?v=C0yKAg6IklU)
 
 ## Support
 Just got your $500 advance payment? Consider supporting me
