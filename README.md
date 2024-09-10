@@ -1,5 +1,5 @@
 ## Installation
-- **Chrome:** Install directly from the [Chrome Web Store](https://chromewebstore.google.com/detail/dole-bludger/haeckfjephijlgkadecdknebckfndnpi)
+- **Chrome:** Install directly from the [Chrome Web Store](https://chromewebstore.google.com/detail/haeckfjephijlgkadecdknebckfndnpi)
 - **Firefox:** Install directly from the [Mozilla Add-ons website](https://addons.mozilla.org/en-US/firefox/addon/dole-bludger/)
 
 ## Installation - Unpacked Extension
