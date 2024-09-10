@@ -14,7 +14,7 @@ Pending review on CWS - a direct CWS link will be added soon
 
 1. Download the `.zip` file
 2. Extract the contents of `dole-bludger-main.zip`
-3. Install from the `dist` directory
+3. Load the unpacked directory in Chrome extension manager
 
 [Video Guide](https://www.youtube.com/watch?v=hIRX1dpfqHc) | [Written Guide](https://developer.chrome.com/docs/extensions/mv3/getstarted/development-basics/#load-unpacked)
 
