@@ -1,20 +1,16 @@
-## Roadmap
-- ✅ Support Seek job listings
-- ✅ Support Jora job listings
-- ✅ Support Indeed job listings
+## Installation
+**Chrome Web Store:** [Latest release](https://chromewebstore.google.com/detail/dole-bludger/haeckfjephijlgkadecdknebckfndnpi)
+**Mozilla Add-ons:** *coming soon..*
+
+## Installation - Unpacked Extension
+1. Download the `.zip` file for `chrome` or `firefox` from [latest release](https://github.com/probablyraging/dole-bludger/releases)
+2. Extract the contents of `dole-bludger-<browser>.zip`
+3. Load the unpacked directory in the Chrome/Firefox extension manager
+
+[Chrome Written Guide](https://developer.chrome.com/docs/extensions/mv3/getstarted/development-basics/#load-unpacked) | [Firefox Written Guide](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/Your_first_WebExtension#installing) | [Chrome/Firefox Video Guide](https://www.youtube.com/watch?v=dhaGRJvJAII) 
 
 ## Video Demonstration
 [![Video Title](https://i.imgur.com/1fSpAvu.png)](https://www.youtube.com/watch?v=C0yKAg6IklU)
-
-## Installation - Chrome Web Store
-Pending review on CWS - a direct CWS link will be added soon
-
-## Installation - Unpacked Extension
-![image](https://github.com/user-attachments/assets/ba852bc9-bcab-4508-a2de-5738860a4b1e)
-
-1. Download the `.zip` file
-2. Extract the contents of `dole-bludger-main.zip`
-3. Load the unpacked directory in Chrome extension manager
 
 [Video Guide](https://www.youtube.com/watch?v=hIRX1dpfqHc) | [Written Guide](https://developer.chrome.com/docs/extensions/mv3/getstarted/development-basics/#load-unpacked)
 

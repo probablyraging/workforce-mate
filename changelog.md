@@ -1,0 +1,2 @@
+- Added cross-browser support for Chrome and Firefox
+- Added release workflow

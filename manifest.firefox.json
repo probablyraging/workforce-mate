@@ -1,13 +1,21 @@
 {
-    "manifest_version": 3,
+    "manifest_version": 2,
     "name": "Dole Bludger",
-    "version": "1.0",
+    "version": "1.2",
     "description": "Easily fill out your job search efforts on the workforceaustralia.gov.au website",
-    "host_permissions": [
-        "https://www.workforceaustralia.gov.au/*"
+    "permissions": [
+        "https://www.workforceaustralia.gov.au/*",
+        "https://www.seek.com.au/*",
+        "https://au.jora.com/*",
+        "https://au.indeed.com/*",
+        "webRequest",
+        "webRequestBlocking",
+        "<all_urls>"
     ],
     "background": {
-        "service_worker": "background.js"
+        "scripts": [
+            "background.js"
+        ]
     },
     "content_scripts": [
         {

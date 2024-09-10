@@ -1,3 +1,4 @@
+const browserAPI = (typeof browser !== 'undefined' ? browser : chrome);
 const buttonId = 'dole-bludger';
 const retryInterval = 500;
 
@@ -104,11 +105,18 @@ async function handleButtonClick(e) {
 // Fetch job data
 function fetchJobData(url) {
     return new Promise((resolve, reject) => {
-        chrome.runtime.sendMessage({ action: "fetchJobData", url }, response => {
-            if (response.error) {
+        browserAPI.runtime.sendMessage({ action: "fetchJobData", url }, response => {
+            if (browserAPI.runtime.lastError) {
+                console.error('Runtime error:', browserAPI.runtime.lastError);
+                reject(new Error(browserAPI.runtime.lastError.message));
+            } else if (response && response.error) {
+                console.error('Response error:', response.error);
                 reject(new Error(response.error));
-            } else {
+            } else if (response && response.data) {
                 resolve(response.data);
+            } else {
+                console.error('Invalid response:', response);
+                reject(new Error("Invalid response"));
             }
         });
     });
