@@ -14,13 +14,13 @@
 - ✅ Support for Seek, Jora, and Indeed job listings
 
 ## How to use
-1. Find a job listing on either Seek, Jora, or Indeed and copy the URL
+1. Find a job listing on one of the supported sites and copy the URL
 2. Paste the URL in to the input box and click 'Fill form'
 3. Sip your beer and let the magic happen
 
 **Video demonstration**
 
-[![Video Title](https://i.imgur.com/8jMgNwE.png)](https://www.youtube.com/watch?v=C0yKAg6IklU)
+[![Video Title](https://i.imgur.com/2FkSqiB.png)](https://www.youtube.com/watch?v=C0yKAg6IklU)
 
 ## Support
 Just got your $500 advance payment? Consider supporting me
