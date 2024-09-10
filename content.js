@@ -1,5 +1,5 @@
 const browserAPI = (typeof browser !== 'undefined' ? browser : chrome);
-const buttonId = 'dole-bludger';
+const buttonId = 'workforce-mate';
 const retryInterval = 500;
 
 // Initialize the extension

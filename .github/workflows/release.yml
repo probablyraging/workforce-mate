@@ -42,13 +42,13 @@ jobs:
       - name: Create Chrome ZIP
         run: |
           cd dist/chrome
-          zip -r ../../dole-bludger-chrome-${{ github.event.inputs.version }}.zip *
+          zip -r ../../workforce-mate-chrome-${{ github.event.inputs.version }}.zip *
           cd ../..
 
       - name: Create Firefox ZIP
         run: |
           cd dist/firefox
-          zip -r ../../dole-bludger-firefox-${{ github.event.inputs.version }}.zip *
+          zip -r ../../workforce-mate-firefox-${{ github.event.inputs.version }}.zip *
           cd ../..
 
       - name: Commit changes
@@ -65,8 +65,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tag_name: ${{ github.event.inputs.version }}
-          name: Dole Bludger v${{ github.event.inputs.version }}
+          name: Workforce Mate v${{ github.event.inputs.version }}
           body_path: ./changelog.md
           files: |
-            dole-bludger-chrome-${{ github.event.inputs.version }}.zip
-            dole-bludger-firefox-${{ github.event.inputs.version }}.zip
+            workforce-mate-chrome-${{ github.event.inputs.version }}.zip
+            workforce-mate-firefox-${{ github.event.inputs.version }}.zip

@@ -1,2 +1,3 @@
-- Added cross-browser support for Chrome and Firefox
-- Added release workflow
+- Changed extension name to 'Workforce Mate'
+- Updated extension icon to suit name change
+- Removed unnecessary permission from firefox manifest

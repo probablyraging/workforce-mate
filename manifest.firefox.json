@@ -1,16 +1,15 @@
 {
     "manifest_version": 2,
-    "name": "Dole Bludger",
+    "name": "Workforce Mate",
     "version": "1.1.0",
-    "description": "Easily fill out your job search efforts on the workforceaustralia.gov.au website",
+    "description": "Fill out your job search efforts on the Workforce Australia website with ease",
     "permissions": [
         "https://www.workforceaustralia.gov.au/*",
         "https://www.seek.com.au/*",
         "https://au.jora.com/*",
         "https://au.indeed.com/*",
         "webRequest",
-        "webRequestBlocking",
-        "<all_urls>"
+        "webRequestBlocking"
     ],
     "background": {
         "scripts": [
