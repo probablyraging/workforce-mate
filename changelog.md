@@ -1,2 +1,2 @@
-- Added a divider between the WFM input and the rest of the form
-- Added a label to the input
+- Added support for LinkedIn
+- Miscellaneous styling changes

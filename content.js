@@ -11,7 +11,7 @@ function initializeExtension() {
     }
 }
 
-// Add button to form - retry if form not found
+// Add new div to form - retry if form not found
 function addDivToForm() {
     const form = document.querySelector('.container-fluid');
     if (!form) {
@@ -24,6 +24,10 @@ function addDivToForm() {
     const newDiv = createFormFillerElements();
     form.insertBefore(newDiv.mainDiv, form.firstChild);
 
+    // Close the annoying calender UI that is always open by default
+    const calenderDiv = document.getElementById('ui-datepicker-div');
+    calenderDiv.style.display = 'none';
+
     setTimeout(() => newDiv.input.focus(), 0);
 }
 
@@ -34,22 +38,22 @@ function createFormFillerElements() {
     mainDiv.id = buttonId;
 
     const flexDiv = document.createElement('div');
-    flexDiv.style.cssText = 'display: flex; gap: 6px;';
+    flexDiv.style.cssText = 'display: flex; gap: 6px; ';
 
     const divider = document.createElement('div');
     divider.style.cssText = 'width: 100%; height: 1px; background-color: #dadada; margin-top: 10px; margin-bottom: 20px;';
 
     const label = createLabel();
-    const input = createInput();
+    const { inputDiv, input } = createInput();
     const button = createButton();
 
     mainDiv.appendChild(label);
     mainDiv.append(flexDiv);
-    flexDiv.appendChild(input);
+    flexDiv.appendChild(inputDiv);
     flexDiv.appendChild(button);
     mainDiv.appendChild(divider);
 
-    return { mainDiv, input };
+    return { mainDiv, inputDiv, input };
 }
 
 // Label element
@@ -62,8 +66,10 @@ function createLabel() {
 
 // Input element
 function createInput() {
+    const inputDiv = document.createElement('div');
+    inputDiv.style.cssText = 'width: 100%';
+
     const input = document.createElement('input');
-    input.placeholder = 'Enter a Seek, Jora, or Indeed job listing URL';
     input.style.cssText = `
         background-color: #fff;
         border: 1px solid #ccc;
@@ -73,28 +79,42 @@ function createInput() {
         align-items: center;
         height: 36px;
         width: 100%;
-        margin-bottom: 10px;
     `;
-    return input;
+
+    const description = document.createElement('p');
+    description.textContent = 'Paste the URL of a job listing from Seek, Jora, Indeed, or LinkedIn.';
+    description.style.cssText = `
+        margin-top: 4px;
+        font-size: 11px;
+        color: #666;
+    `;
+
+    inputDiv.appendChild(input);
+    inputDiv.appendChild(description);
+
+    return { inputDiv, input };
 }
 
 // Button element
 function createButton() {
     const button = document.createElement('button');
-    button.textContent = 'FILL FORM';
+    button.textContent = 'Fill Form';
     button.style.cssText = `
         background-color: #00a1d0;
         color: white;
         border: none;
-        border-radius: 4px;
-        padding: 8px 16px;
-        font-family: Arial, sans-serif;
+        border-radius: 3px;
+        padding: 5px 10px;
+        font-family: inherit;
         font-size: 14px;
+        font-weight: normal;
+        line-height: 1.5;
         cursor: pointer;
         display: flex;
         align-items: center;
         height: 36px;
         min-width: fit-content;
+        user-select: none;
     `;
     button.addEventListener('click', handleButtonClick);
     return button;
@@ -117,6 +137,7 @@ async function handleButtonClick(e) {
         if (url.includes('seek.com.au/')) fillFormFromSeek(jobData);
         if (url.includes('au.jora.com/')) fillFormFromJora(jobData);
         if (url.includes('au.indeed.com/')) fillFormFromIndeed(jobData);
+        if (url.includes('linkedin.com/')) fillFormFromLinkedin(jobData);
     } catch (error) {
         console.error('Error:', error.message);
     }
@@ -181,6 +202,21 @@ function fillFormFromIndeed(htmlData) {
     const jobTitle = doc.querySelector('h1.jobsearch-JobInfoHeader-title')?.textContent;
     const jobLocation = doc.querySelector('div[data-testid="inlineHeader-companyLocation"]')?.textContent;
     const jobAgent = doc.querySelector('div[data-testid="inlineHeader-companyName"] a')?.textContent.trim().split('.css')[0];
+
+    setInputValue('input[name="JobTitle"]', jobTitle, 50);
+    setInputValue('input[name="JobLocation"]', jobLocation);
+    setInputValue('input[name="AgentName"]', jobAgent);
+    setInputValue('input[name="EmployerContact"]', 'Online');
+    setSelectValue('select[name="ApplicationMethod"]', 'ONEX');
+}
+
+function fillFormFromLinkedin(htmlData) {
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(htmlData, 'text/html');
+
+    const jobTitle = doc.querySelector('h3.sub-nav-cta__header')?.textContent;
+    const jobLocation = doc.querySelector('span.sub-nav-cta__meta-text')?.textContent;
+    const jobAgent = doc.querySelector('a.topcard__org-name-link')?.textContent;
 
     setInputValue('input[name="JobTitle"]', jobTitle, 50);
     setInputValue('input[name="JobLocation"]', jobLocation);

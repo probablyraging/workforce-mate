@@ -9,7 +9,7 @@
 
 ## Installation
 - **Chrome:** Install directly from the [Chrome Web Store](https://chromewebstore.google.com/detail/haeckfjephijlgkadecdknebckfndnpi)
-- **Firefox:** Install directly from the [Mozilla Add-ons website](https://addons.mozilla.org/en-US/firefox/addon/dole-bludger/)
+- **Firefox:** Install directly from the [Mozilla Add-ons website](https://addons.mozilla.org/en-US/firefox/addon/workforce-mate/)
 
 ## Installation - Unpacked Extension
 1. Download the `.zip` file for `chrome` or `firefox` from [latest release](https://github.com/probablyraging/workforce-mate/releases)
@@ -20,11 +20,11 @@
 
 ## Features
 - ✅ Chrome and Firefox versions available
-- ✅ Support for Seek, Jora, and Indeed job listings
+- ✅ Support for Seek, Jora, Indeed. and LinkedIn job listings
 
 ## How to use
 1. Find a job listing on one of the supported sites and copy the URL
-2. Paste the URL in to the input box and click 'Fill form'
+2. Paste the URL in to the input box and click 'Fill Form'
 3. Sip your beer and let the magic happen
 
 **Video demonstration**
