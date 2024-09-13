@@ -9,11 +9,6 @@ on:
       previous_version:
         description: 'Previous Version'
         required: true
-      force_npm_install:
-        description: 'Force fresh npm install'
-        required: false
-        type: boolean
-        default: false
 
 permissions:
   contents: write
